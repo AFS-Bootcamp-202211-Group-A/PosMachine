@@ -22,4 +22,8 @@ public class PosMachine {
         return subItem;
     }
 
+    public int getQuantity(Item item, List<String> barcodes){
+        return (int) barcodes.stream().filter(itemCode -> itemCode.equals(item.getBarcode())).count();
+    }
+
 }
