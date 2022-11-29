@@ -19,6 +19,12 @@ public class PosMachine {
                 .collect(Collectors.toList());
     }
 
+    public String generateReceiptLine(Item item, Integer quantity){
+        return "Name: " + item.getName() + ", Quantity: " + quantity+ ", Unit price: "
+                + item.getPrice() + " (yuan), Subtotal: "+ quantity*item.getPrice() + " (yuan)\n";
+    }
+
+
 
     public String printReceipt(List<String> barcodes) {
         return null;
