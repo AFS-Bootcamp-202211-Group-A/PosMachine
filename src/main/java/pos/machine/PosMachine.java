@@ -9,9 +9,17 @@ public class PosMachine {
         String result = constructRecipt(barcodes);
         return result;
     }
-    
+
     public List<Item> getAllItems() {
         return ItemDataLoader.loadAllItems();
+    }
+
+    public SubItem constructSubItem(Item item, List<String> barcodes){
+        int itemQuantity = getQuantity(item, barcodes);
+        int itemSubTotal = itemQuantity*item.getPrice();
+        String str = "Name: " + item.getName() + ", Quantity: " + itemQuantity + ", Unit price: "+ item.getPrice() + " (yuan), Subtotal: " + itemSubTotal + " (yuan)\n";
+        SubItem subItem = new SubItem(str, itemSubTotal);
+        return subItem;
     }
 
 }
