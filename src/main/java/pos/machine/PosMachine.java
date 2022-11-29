@@ -54,4 +54,14 @@ public class PosMachine {
         }
         return total;
     }
+
+    public String generateReceiptSummary(List<BarcodeCount> barcodeCountList ) {
+        List<BarcodeGroup> barcodeGroupList = getBarcodeGroupListFromDB(barcodeCountList);
+        String receiptSummary = "***<store earning no money>Receipt***\n";
+        receiptSummary += generateBarcodeGroupListSummary(barcodeGroupList);
+        receiptSummary += "----------------------\n" +
+                            "Total: "+ calculateTotal(barcodeGroupList) + " (yuan)\n" +
+                        "**********************";
+        return receiptSummary;
+    }
 }
