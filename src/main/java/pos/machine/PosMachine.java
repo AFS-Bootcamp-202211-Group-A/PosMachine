@@ -11,6 +11,13 @@ public class PosMachine {
         return barcodes.stream().collect(Collectors.toMap(Function.identity(), e -> 1, Math::addExact));
     }
 
+    //returns items that has the barcodes
+    public List<Item> getAndFilterItems(List<String> barcodes){
+        return ItemDataLoader.loadAllItems()
+                .stream()
+                .filter(item -> barcodes.contains(item.getBarcode()))
+                .collect(Collectors.toList());
+    }
 
 
     public String printReceipt(List<String> barcodes) {
