@@ -8,15 +8,15 @@ public class ItemSubtotal {
 
     private final int quantity;
 
-    public final int total;
+    public final int subTotal;
 
 
-    public ItemSubtotal(String barcode, String name, int price, int quantity, int total) {
+    public ItemSubtotal(String barcode, String name, int price, int quantity, int subTotal) {
         this.barcode = barcode;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
-        this.total = total;
+        this.subTotal = subTotal;
     }
 
     public String getBarcode() {
@@ -33,8 +33,8 @@ public class ItemSubtotal {
     public int getQuantity() {
         return quantity;
     }
-    public int getTotal() {
-        return total;
+    public int getSubTotal() {
+        return subTotal;
     }
 
 }
