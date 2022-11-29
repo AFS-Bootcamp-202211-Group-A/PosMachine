@@ -8,6 +8,12 @@ public class PosMachine {
         return ItemDataLoader.loadAllItems();
     }
     public String printReceipt(List<String> barcodes) {
-        return null;
+        String receipt = constructReceipt(barcodes);
+        return receipt;
+    }
+
+    public String constructReceipt(List<String> barcodes){
+        String receipt = "";
+        return receipt;
     }
 }
