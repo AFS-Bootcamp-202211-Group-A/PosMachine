@@ -6,7 +6,10 @@ import java.util.List;
 
 public class PosMachine {
     public String printReceipt(List<String> barcodes) {
-        return null;
+
+        List <SummarizedItem> summarizedItems = summarizeItems(barcodes);
+        int total = getTotal(summarizedItems);
+        return generateReceipt(summarizedItems,total);
     }
 
     public int countItems(List<String> barcodeList, String barcode){
@@ -84,6 +87,7 @@ public class PosMachine {
         receipt +="**********************";
         return receipt;
     }
+
 
 
 
