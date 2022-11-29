@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class GroupedItems {
+public class GroupedItem {
     String name;
     int quantity;
     int unitPrice;
@@ -26,28 +26,30 @@ public class GroupedItems {
         return subtotalPrice;
     }
 
-    public GroupedItems(String name, int quantity, int unitPrice) {
+    public GroupedItem(String name, int quantity, int unitPrice) {
         this.name = name;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.subtotalPrice = quantity * unitPrice;
     }
 
-    public static List<GroupedItems> fromItems(List<Item> items) {
-        List<GroupedItems> groupedItems = new ArrayList<>();
+    public static List<GroupedItem> fromItems(List<Item> items) {
+        List<GroupedItem> groupedItems = new ArrayList<>();
 
         List<String> addedBarcodes = new ArrayList<>();
 
         for (Item item : items) {
-            if (addedBarcodes.contains(item.getBarcode())) {
+            String barcode = item.getBarcode();
+            if (addedBarcodes.contains(barcode)) {
                 continue;
             }
-            groupedItems.add(new GroupedItems(item.getName(), getQuantity(item.getBarcode(), items), item.getPrice()));
+            groupedItems.add(new GroupedItem(item.getName(), getQuantity(barcode, items), item.getPrice()));
+            addedBarcodes.add(barcode);
         }
 
         return groupedItems;
     }
     static int getQuantity(String barcode, List<Item> items) {
-        return items.stream().filter(item -> item.getBarcode().equals(barcode)).collect(Collectors.toList()).size();
+        return items.stream().filter(item -> barcode.equals(item.getBarcode())).collect(Collectors.toList()).size();
     }
 }
