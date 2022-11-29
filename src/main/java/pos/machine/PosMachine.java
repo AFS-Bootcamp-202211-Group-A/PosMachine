@@ -9,8 +9,8 @@ public class PosMachine {
         return null;
     }
 
-    public ArrayList<BarcodeCount> aggregateBarcodes(ArrayList<String> barcodes){
-        ArrayList<BarcodeCount> barcodeCountList = new ArrayList<BarcodeCount>();
+    public List<BarcodeCount> aggregateBarcodes(List<String> barcodes){
+        List<BarcodeCount> barcodeCountList = new ArrayList<BarcodeCount>();
         HashMap<String, BarcodeCount> barcodeCounter = new HashMap<>();
         for(String barcode: barcodes){
             if (barcodeCounter.containsKey(barcodes)){
@@ -23,4 +23,5 @@ public class PosMachine {
         }
         return barcodeCountList;
     }
+
 }
