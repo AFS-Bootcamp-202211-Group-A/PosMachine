@@ -1,6 +1,8 @@
 package pos.machine;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,24 +34,23 @@ public class GroupedItem {
         this.unitPrice = unitPrice;
         this.subtotalPrice = quantity * unitPrice;
     }
-
-    public static List<GroupedItem> fromItems(List<Item> items) {
+    public static List<GroupedItem> fromBarcodes(List<String> barcodes) {
+        List<Item> allItems = ItemDataLoader.loadAllItems();
         List<GroupedItem> groupedItems = new ArrayList<>();
-
         List<String> addedBarcodes = new ArrayList<>();
 
-        for (Item item : items) {
-            String barcode = item.getBarcode();
+        for (String barcode : barcodes) {
             if (addedBarcodes.contains(barcode)) {
                 continue;
             }
-            groupedItems.add(new GroupedItem(item.getName(), getQuantity(barcode, items), item.getPrice()));
-            addedBarcodes.add(barcode);
+            for (Item item : allItems) {
+                if (barcode.equals(item.getBarcode())) {
+                    groupedItems.add(new GroupedItem(item.getName(), Collections.frequency(barcodes, barcode), item.getPrice()));
+                    addedBarcodes.add(barcode);
+                    break;
+                }
+            }
         }
-
         return groupedItems;
-    }
-    static int getQuantity(String barcode, List<Item> items) {
-        return items.stream().filter(item -> barcode.equals(item.getBarcode())).collect(Collectors.toList()).size();
     }
 }

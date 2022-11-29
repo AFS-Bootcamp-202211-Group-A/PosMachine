@@ -5,17 +5,7 @@ import java.util.List;
 
 public class PosMachine {
     public String printReceipt(List<String> barcodes) {
-        List<Item> allItems = ItemDataLoader.loadAllItems();
-        List<Item> items = new ArrayList<>();
-        for (String barcode : barcodes) {
-            for (Item allItem : allItems) {
-                if (barcode.equals(allItem.getBarcode())) {
-                    items.add(allItem);
-                }
-            }
-        }
-
-        List<GroupedItem> groupedItems = GroupedItem.fromItems(items);
+        List<GroupedItem> groupedItems = GroupedItem.fromBarcodes(barcodes);
         String receipt = "***<store earning no money>Receipt***\n";
         receipt += generateItemListString(groupedItems);
         receipt += "----------------------\n";
