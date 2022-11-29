@@ -7,14 +7,15 @@ import java.util.stream.Collectors;
 
 public class PosMachine {
     public String printReceipt(List<String> barcodes) {
-        return null;
+        List<BarcodeCount> barcodeCountList = aggregateBarcodes(barcodes);
+        return generateReceiptSummary(barcodeCountList);
     }
 
     public List<BarcodeCount> aggregateBarcodes(List<String> barcodes){
-        List<BarcodeCount> barcodeCountList = new ArrayList<BarcodeCount>();
+        List<BarcodeCount> barcodeCountList = new ArrayList<>();
         HashMap<String, BarcodeCount> barcodeCounter = new HashMap<>();
         for(String barcode: barcodes){
-            if (barcodeCounter.containsKey(barcodes)){
+            if (barcodeCounter.containsKey(barcode)){
                 barcodeCounter.get(barcode).setQuantity(barcodeCounter.get(barcode).getQuantity()+1);
             } else {
                 BarcodeCount barcodeCount= new BarcodeCount(barcode, 1);
@@ -44,7 +45,7 @@ public class PosMachine {
             barcodeGroupListSummary += "Name: "+barcodeGroup.name + ", Quantity: "+ barcodeGroup.quantity +
                     ", Unit price: "+ barcodeGroup.price + " (yuan), Subtotal: " + (barcodeGroup.price*barcodeGroup.quantity)+" (yuan)\n";
         }
-        return  barcodeGroupListSummary.trim();
+        return  barcodeGroupListSummary;
     }
 
     public int calculateTotal(List<BarcodeGroup> barcodeGroupList) {
