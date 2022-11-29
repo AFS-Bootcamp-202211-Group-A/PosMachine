@@ -46,4 +46,12 @@ public class PosMachine {
         }
         return  barcodeGroupListSummary.trim();
     }
+
+    public int calculateTotal(List<BarcodeGroup> barcodeGroupList) {
+        int total = 0;
+        for(BarcodeGroup barcodeGroup: barcodeGroupList) {
+            total += barcodeGroup.price * barcodeGroup.quantity;
+        }
+        return total;
+    }
 }
