@@ -67,7 +67,12 @@ public class PosMachine {
         }
         return total;
     }
-
+    public String generateReceiptLine(SummarizedItem summarizedItem){
+        String receiptLine = "";
+        receiptLine +="Name: "+summarizedItem.getName()+", Quantity: "+summarizedItem.getQuantity()+", Unit price: "+summarizedItem.getunitPrice()+" (yuan), Subtotal: "+summarizedItem.getSubtotal()+" (yuan)\n";
+        return receiptLine;
+    }
+    
 
 
 }
