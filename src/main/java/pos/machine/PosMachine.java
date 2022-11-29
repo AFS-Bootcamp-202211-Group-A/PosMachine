@@ -1,7 +1,5 @@
 package pos.machine;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,10 +8,22 @@ public class PosMachine {
         int totalPrice;
         List<Order> receipt = combineItem(barcodes);
         totalPrice = getTotalPrice(receipt);
-        return null;
+        return generateReceipt(receipt, totalPrice);
     }
 
-    private int getTotalPrice(List<Order> receipt) {
+    public String generateReceipt(List<Order> receipt, int totalPrice) {
+        StringBuilder result= new StringBuilder();
+        result.append("***<store earning no money>Receipt***\n");
+        receipt.stream().forEach(order -> {
+            result.append("Name: "+order.getName()+", Quantity: "+order.getQuantity()+", Unit price: "+order.getPrice()+" (yuan), Subtotal: "+order.getSubtotalPrice()+" (yuan)\n");
+        });
+        result.append("----------------------\n");
+        result.append("Total: "+totalPrice+" (yuan)\n");
+        result.append("**********************");
+        return result.toString();
+    }
+
+    public int getTotalPrice(List<Order> receipt) {
         int total= receipt.stream().mapToInt(order -> order.getPrice() * order.getQuantity()).sum();
         return total;
     }
@@ -29,7 +39,7 @@ public class PosMachine {
         return receipt;
     }
 
-    private int getSubtotalPrice(int quantity, Item item) {
+    public int getSubtotalPrice(int quantity, Item item) {
         return quantity*item.getPrice();
     }
 
