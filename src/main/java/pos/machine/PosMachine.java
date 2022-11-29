@@ -24,7 +24,12 @@ public class PosMachine {
                 + item.getPrice() + " (yuan), Subtotal: "+ quantity*item.getPrice() + " (yuan)\n";
     }
 
-
+    public Integer getTotalPrice(List<Item> items, Map<String, Integer> quantityMap){
+        return items
+                .stream()
+                .map(item -> item.getPrice() * quantityMap.get(item.getBarcode()))
+                .mapToInt(Integer::intValue).sum();
+    }
 
     public String printReceipt(List<String> barcodes) {
         return null;
