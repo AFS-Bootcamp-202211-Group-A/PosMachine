@@ -18,4 +18,16 @@ public class SummarizedItem {
     public void setSubtotal(int subTotal){
         this.subTotal = subTotal;
     }
+    public int getSubtotal(){
+        return this.subTotal;
+    }
+    public String getName(){
+        return this.name;
+    }
+    public int getunitPrice(){
+        return this.unitPrice;
+    }
+    public int getQuantity(){
+        return this.quantity;
+    }
 }

@@ -59,6 +59,16 @@ public class PosMachine {
         }
         return summarizedItems;
     }
+    public int getTotal(List<SummarizedItem> summarizedItems){
+        int total = 0;
+        for (SummarizedItem summarizedItem:summarizedItems){
+            total += summarizedItem.getSubtotal();
+            
+        }
+        return total;
+    }
+
+
 
 }
 
