@@ -1,13 +1,13 @@
 package pos.machine;
 
-public class SummarizedItems {
+public class SummarizedItem {
     private String barcode;
     private String name;
     private int quantity;
     private int unitPrice;
     private int subTotal;
 
-    public SummarizedItems(String barcode, int quantity){
+    public SummarizedItem(String barcode, int quantity){
         this.barcode = barcode;
         this.quantity = quantity;
     }
