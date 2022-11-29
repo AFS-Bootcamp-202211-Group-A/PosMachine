@@ -25,4 +25,10 @@ public class PosMachine {
         ItemSubtotal receiptItemsWithSubtotal = new ItemSubtotal(item.getBarcode(), item.getName(), item.getPrice(), quantity, subTotal );
         return receiptItemsWithSubtotal;
     }
+
+    public int calculateTotal(List<ItemSubtotal> receiptItemsWithSubtotal){
+        int total = receiptItemsWithSubtotal.stream().mapToInt(itemSubtotal -> itemSubtotal.getSubTotal()).sum();
+        return total;
+    }
+
 }
