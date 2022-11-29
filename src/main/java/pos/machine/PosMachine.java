@@ -10,6 +10,21 @@ public class PosMachine {
         return result;
     }
 
+    public String constructRecipt(List<String> barcodes){
+        List<Item> allItems = getAllItems();
+        String result = "***<store earning no money>Receipt***\n";
+
+        List<SubItem> subItemStream = allItems.stream().map(item -> constructSubItem(item, barcodes)).collect(Collectors.toList());
+        String allSubItemStr = String.join("", subItemStream.stream().map(item -> item.getItemStr()).collect(Collectors.toList()) );
+        result += allSubItemStr;
+        int total = calculateTotal(subItemStream);
+        result += "----------------------\n";
+        result += "Total: "+ total +" (yuan)\n";
+        result += "**********************";
+
+        return result;
+    }
+
     public List<Item> getAllItems() {
         return ItemDataLoader.loadAllItems();
     }
