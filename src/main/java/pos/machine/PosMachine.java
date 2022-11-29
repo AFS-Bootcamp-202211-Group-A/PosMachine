@@ -9,16 +9,7 @@ public class PosMachine {
     public String printReceipt(List<String> barcodes) {
         int totalPrice;
         List<Order> receipt = combineItem(barcodes);
-        totalPrice = getTotalPrice(receipt);
         return null;
-    }
-
-    private int getTotalPrice(List<Order> receipt) {
-        int total=0;
-        receipt.stream().forEach(order -> {
-            total += order.getPrice() * order.getQuantity();
-        });
-        return total;
     }
 
     public List<Order> combineItem(List<String> barcodes){
@@ -27,7 +18,6 @@ public class PosMachine {
         allItem.stream().forEach(item -> {
             int quantity = getQuantity(item.getBarcode(), barcodes);
             int subTotalprice = getSubtotalPrice(quantity,item);
-            receipt.add(new Order(item.getName(),quantity,subTotalprice,item.getPrice()));
         });
         return receipt;
     }
