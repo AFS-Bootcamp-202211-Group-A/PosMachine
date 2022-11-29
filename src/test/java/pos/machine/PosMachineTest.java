@@ -2,9 +2,25 @@ package pos.machine;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PosMachineTest {
+
+    @Test
+    public void should_return_map() {
+        PosMachine posMachine = new PosMachine();
+
+        Map<String, Integer> expectedMap = new HashMap<String, Integer>() {{
+            put("ITEM000000", 4);
+            put("ITEM000004", 3);
+            put("ITEM000001", 2);
+        }};
+
+        assertEquals(expectedMap, posMachine.loadItemQuantity(ItemDataLoader.loadBarcodes()));
+    }
 
     @Test
     public void should_return_receipt() {
