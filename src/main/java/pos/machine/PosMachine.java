@@ -37,4 +37,13 @@ public class PosMachine {
         })).collect(Collectors.toList());
         return barcodeGroupList;
     }
+
+    public String generateBarcodeGroupListSummary(List<BarcodeGroup> barcodeGroupList) {
+        String barcodeGroupListSummary = "";
+        for( BarcodeGroup barcodeGroup : barcodeGroupList) {
+            barcodeGroupListSummary += "Name: "+barcodeGroup.name + ", Quantity: "+ barcodeGroup.quantity +
+                    ", Unit price: "+ barcodeGroup.price + " (yuan), Subtotal: " + (barcodeGroup.price*barcodeGroup.quantity)+" (yuan)\n";
+        }
+        return  barcodeGroupListSummary.trim();
+    }
 }
