@@ -26,4 +26,8 @@ public class PosMachine {
         return (int) barcodes.stream().filter(itemCode -> itemCode.equals(item.getBarcode())).count();
     }
 
+    public int calculateTotal(List<SubItem> subItemStream){
+        return subItemStream.stream().mapToInt(subItem -> subItem.getTotalPrice()).sum();
+    }
+
 }
