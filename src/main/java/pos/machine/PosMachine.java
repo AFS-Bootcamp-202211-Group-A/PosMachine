@@ -2,7 +2,6 @@ package pos.machine;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class PosMachine {
 
@@ -14,8 +13,16 @@ public class PosMachine {
         return receipt;
     }
 
-    public String constructReceipt(List<String> barcodes){
+    public String constructReceipt(List<String> barcodes) {
         String receipt = "";
+        receipt += "***<store earning no money>Receipt***\n";
+        List<Item> receiptItems = getEachItemNamePrice(barcodes);
+        List<ItemSubtotal> receiptItemsWithSubtotal = receiptItems.stream().map(item -> calculateSubtotal(item, barcodes)).collect(Collectors.toList());
+        receipt += String.join("", receiptItemsWithSubtotal.stream().map(item -> ("Name: " + item.getName() + ", Quantity: " + item.getQuantity() + ", Unit price: "+ item.getPrice() + " (yuan), Subtotal: " + item.getSubTotal()) + " (yuan)\n").collect(Collectors.toList()) );
+        int total = calculateTotal(receiptItemsWithSubtotal);
+        receipt += "----------------------\n";
+        receipt += "Total: "+ total +" (yuan)\n";
+        receipt += "**********************";
         return receipt;
     }
 
