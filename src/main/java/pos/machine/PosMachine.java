@@ -7,3 +7,4 @@ public class PosMachine {
         return null;
     }
 }
+
