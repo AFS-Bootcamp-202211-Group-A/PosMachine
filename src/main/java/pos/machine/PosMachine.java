@@ -3,6 +3,7 @@ package pos.machine;
 import java.util.List;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class PosMachine {
     public String printReceipt(List<String> barcodes) {
@@ -24,4 +25,16 @@ public class PosMachine {
         return barcodeCountList;
     }
 
+    public List<BarcodeGroup> getBarcodeGroupListFromDB(List<BarcodeCount> barcodeCountList) {
+        List<Item> itemList = ItemDataLoader.loadAllItems();
+        List<BarcodeGroup> barcodeGroupList = barcodeCountList.stream().map((barcodeCount -> {
+            Item barcodeItem = itemList.stream()
+                    .filter( item -> item.getBarcode().equals(barcodeCount.getBarcode()))
+                    .collect(Collectors.toList()).get(0);
+            return new BarcodeGroup(
+                    barcodeCount.getBarcode(), barcodeItem.getName(), barcodeCount.getQuantity(), barcodeItem.getPrice()
+            );
+        })).collect(Collectors.toList());
+        return barcodeGroupList;
+    }
 }
