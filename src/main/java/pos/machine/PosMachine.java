@@ -7,7 +7,24 @@ import java.util.stream.Collectors;
 
 public class PosMachine {
     public String printReceipt(List<String> barcodes) {
-        return null;
+        List<Item> allItems = ItemDataLoader.loadAllItems();
+        List<Item> items = new ArrayList<>();
+        for (String barcode : barcodes) {
+            for (Item allItem : allItems) {
+                if (barcode.equals(allItem.getBarcode())) {
+                    items.add(allItem);
+                }
+            }
+        }
+
+        List<GroupedItems> groupedItems = GroupedItems.fromItems(items);
+        String receipt = "***<store earning no money>Receipt***\n";
+        receipt += generateItemListString(groupedItems);
+        receipt += "----------------------\n";
+        receipt += "Total: " + getTotalPrice(groupedItems) + " (yuan)\n";
+        receipt += "**********************";
+
+        return receipt;
     }
     String generateItemListString(List<GroupedItems> groupedItems) {
         String itemListString = "";
