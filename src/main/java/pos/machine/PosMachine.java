@@ -26,7 +26,16 @@ public class PosMachine {
         }
         return price;
     }
-   
+    public String getName(String barcode){
+        String name = "";
+        List<Item> loadedItem = pos.machine.ItemDataLoader.loadAllItems();
+        for (Item item:loadedItem){
+            if (item.getBarcode()==barcode){
+                name = item.getName();
+            }
+        }
+       return name;
+    }
 
 }
 
