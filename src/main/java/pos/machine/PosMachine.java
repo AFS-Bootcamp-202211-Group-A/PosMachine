@@ -16,5 +16,17 @@ public class PosMachine {
         }
         return count;
     }
+    public int getPrice(String barcode){
+        int price =0;
+        List<Item> loadedItem = pos.machine.ItemDataLoader.loadAllItems();
+        for (Item item:loadedItem){
+            if (item.getBarcode().equals(barcode)){
+                price = item.getPrice();
+            }
+        }
+        return price;
+    }
+   
+
 }
 
