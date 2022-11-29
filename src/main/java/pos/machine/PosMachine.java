@@ -12,12 +12,14 @@ public class PosMachine {
         return null;
     }
 
+
     public List<Order> combineItem(List<String> barcodes){
         List<Item> allItem = ItemDataLoader.loadAllItems();
         List<Order> receipt = new ArrayList<>();
         allItem.stream().forEach(item -> {
             int quantity = getQuantity(item.getBarcode(), barcodes);
             int subTotalprice = getSubtotalPrice(quantity,item);
+            receipt.add(new Order(item.getName(),quantity,subTotalprice,item.getPrice()));
         });
         return receipt;
     }
