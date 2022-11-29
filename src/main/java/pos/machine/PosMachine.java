@@ -32,6 +32,15 @@ public class PosMachine {
     }
 
     public String printReceipt(List<String> barcodes) {
-        return null;
+        StringBuilder output = new StringBuilder("***<store earning no money>Receipt***\n");
+        Map<String, Integer> quantityMap = loadItemQuantity(barcodes);
+
+        for (Item item : getAndFilterItems(barcodes)){
+            output.append(generateReceiptLine(item, quantityMap.get(item.getBarcode())));
+        }
+        output.append("----------------------\n");
+        output.append("Total: ").append(getTotalPrice(getAndFilterItems(barcodes), quantityMap)).append(" (yuan)\n");
+        output.append("**********************");
+        return output.toString();
     }
 }
